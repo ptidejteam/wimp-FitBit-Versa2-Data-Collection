@@ -1,0 +1,39 @@
+{
+  "fitbit": {
+    "appType": "app",
+    "appDisplayName": "WIMP",
+    "iconFile": "resources/radar.png",
+    "wipeColor": "#009688",
+    "requestedPermissions": [
+      "access_activity",
+      "access_user_profile",
+      "access_heart_rate",
+      "access_location",
+      "access_internet",
+      "run_background",
+      "access_exercise",
+      "access_calendar",
+      "access_sleep"
+    ],
+    "buildTargets": [
+      "mira"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Message Demo"
+      }
+    },
+    "appUUID": "02d98333-ac3f-472e-a175-b021a0e82104"
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~4.0.0-pre.4",
+    "@fitbit/sdk-cli": "^1.7.0-pre.1"
+  },
+  "dependencies": {
+    "@fitbit/sdk": "~4.0.0-pre.4",
+    "@fitbit/sdk-cli": "^1.7.0-pre.1"
+  },
+  "scripts": {
+    "build": "fitbit-build"
+  }
+}
