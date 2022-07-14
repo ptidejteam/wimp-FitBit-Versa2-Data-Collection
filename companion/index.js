@@ -1,16 +1,28 @@
 import { peerSocket } from "messaging";
 import calendars from "calendars";
-import { me } from "companion"
 
 console.log("Companion Running ");
 
 //Server where the API is runnong (must be HTTPS)
 // const host = "https://bz1ikefgtf.execute-api.us-east-1.amazonaws.com/api/";
-const host = "http://127.0.0.1:5000";
-// const host = "https://cat-fact.herokuapp.com/facts"; // GET TEST
+
+// GET TEST FROM COMPANION CODE
+// --------------------------------------------------
+// const host = "https://cat-fact.herokuapp.com/facts";
+// fetch(host, {
+//   method : "GET",
+//   headers : myHeaders}) // Build the request
+// .then(function(response){
+//   return response.json();}) //Extract JSON from the response
+// .then(function(data) {             
+//   console.log("Got response from server:", JSON.stringify(data));}) // Send it to the watch as a JSON string
+// .catch(function(error) {
+//   console.log(error);}); // Log any errors with Fetch
+
+const host = "https://webhook.site/afbb96d5-cfba-41ed-a4c9-0d0325e278c3";
 
 function sendMessageToServer(message) {
-  fetch(host + "/data", {
+  fetch(host , {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -22,64 +34,36 @@ function sendMessageToServer(message) {
       return response.json();
     })
     .then(data => {
-      console.log("Response from server: " + data);
+      console.log("Response from server: " + JSON.stringify(data));
     })
     .catch(error => {
       console.log("Error from server: " + error);
     });
 }
 
-// fetch(host, {
-//   method : "GET",
-//   headers : myHeaders}) // Build the request
-// .then(function(response){
-//   return response.json();}) //Extract JSON from the response
-// .then(function(data) {             
-//   console.log("Got response from server:", JSON.stringify(data));}) // Send it to the watch as a JSON string
-// .catch(function(error) {
-//   console.log(error);}); // Log any errors with Fetch
+// CALENDAR EVENTS CODE
+let start = new Date()
+start.setHours(0, 0, 0, 0)
+let end = new Date()
+end.setHours(23, 59, 59, 999)
+
+let eventsQuery = { startDate: start, endDate: end }
+
+calendars.searchEvents(eventsQuery).then(todayEvents => {
+  console.log("CALENDAR EVENTS: ");
+  todayEvents.forEach(event => {
+    console.log("EVENT : " + event.title)
+  })
+});
+
 
 peerSocket.addEventListener("message", (evt) => {
   console.log("MESSAGE FROM THE APP: " + JSON.stringify(evt.data));
   sendMessageToServer(evt.data);
 });
 
-// // The Device application caused the Companion to start
-// var myHeaders = new Headers();
-// myHeaders.append('Content-Type', 'application/json');
 
 // if (me.launchReasons.peerAppLaunched) {
 //   // The Device application caused the Companion to start
 //   console.log("Device application was launched!")
 // }
-
-// //When the watch sends a message
-// messaging.peerSocket.onmessage = evt => {
-//   console.log("Data recieved: " + evt.data); //Log it
-//   var url = host + "/test"; // add a path to the URL
-//   fetch(url, {
-//       method : "POST",
-//       headers : myHeaders,
-//       body: evt.data}) // Build the request
-//     .then(function(response){
-//       return response.json();}) //Extract JSON from the response
-//     .then(function(data) {             
-//       console.log("Got response from server:", JSON.stringify(data)); // Log ig
-//       messaging.peerSocket.send(JSON.stringify(data)); }) // Send it to the watch as a JSON string
-//     .catch(function(error) {
-//       console.log(error);}); // Log any errors with Fetch
-// }
-
-// CALENDAR EVENTS CODE
-// let start = new Date()
-// start.setHours(0, 0, 0, 0)
-// let end = new Date()
-// end.setHours(23, 59, 59, 999)
-
-// let eventsQuery = { startDate: start, endDate: end }
-
-// calendars.searchEvents(eventsQuery).then(function() {
-//    todayEvents.forEach(event => {
-//      console.log(event.title)
-//    })
-// });
