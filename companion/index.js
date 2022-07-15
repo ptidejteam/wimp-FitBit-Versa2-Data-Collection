@@ -21,7 +21,7 @@ console.log("Companion Running ");
 
 // const host = "https://webhook.site/afbb96d5-cfba-41ed-a4c9-0d0325e278c3"; // Webhook URL fort tests
 
-const host = "http://192.168.0.200/data"
+const host = "http://192.168.0.203/data"
 
 function sendMessageToServer(message) {
   fetch(host , {
