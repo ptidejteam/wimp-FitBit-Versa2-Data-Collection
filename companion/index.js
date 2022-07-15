@@ -3,9 +3,6 @@ import calendars from "calendars";
 
 console.log("Companion Running ");
 
-//Server where the API is runnong (must be HTTPS)
-// const host = "https://bz1ikefgtf.execute-api.us-east-1.amazonaws.com/api/";
-
 // GET TEST FROM COMPANION CODE
 // --------------------------------------------------
 // const host = "https://cat-fact.herokuapp.com/facts";
@@ -29,7 +26,7 @@ function sendMessageToServer(message) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(message)
+    body: message
   })
     .then(response => {
       console.log("Response from server: " + response.status);
@@ -61,12 +58,6 @@ calendars.searchEvents(eventsQuery).then(todayEvents => {
 
 
 peerSocket.addEventListener("message", (evt) => {
-  console.log("MESSAGE FROM THE APP: " + JSON.stringify(evt.data));
+  console.log("MESSAGE FROM THE APP: " + evt.data);
   sendMessageToServer(evt.data);
 });
-
-
-// if (me.launchReasons.peerAppLaunched) {
-//   // The Device application caused the Companion to start
-//   console.log("Device application was launched!")
-// }
