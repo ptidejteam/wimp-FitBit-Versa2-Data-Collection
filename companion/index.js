@@ -19,7 +19,9 @@ console.log("Companion Running ");
 // .catch(function(error) {
 //   console.log(error);}); // Log any errors with Fetch
 
-const host = "https://webhook.site/afbb96d5-cfba-41ed-a4c9-0d0325e278c3";
+// const host = "https://webhook.site/afbb96d5-cfba-41ed-a4c9-0d0325e278c3"; // Webhook URL fort tests
+
+const host = "http://192.168.0.200/data"
 
 function sendMessageToServer(message) {
   fetch(host , {
@@ -53,6 +55,7 @@ calendars.searchEvents(eventsQuery).then(todayEvents => {
   console.log("CALENDAR EVENTS: ");
   todayEvents.forEach(event => {
     console.log("EVENT : " + event.title)
+    sendMessageToServer(event);
   })
 });
 
