@@ -18,10 +18,10 @@ console.log("Companion Running ");
 
 // const host = "https://webhook.site/afbb96d5-cfba-41ed-a4c9-0d0325e278c3"; // Webhook URL fort tests
 
-const host = "http://192.168.0.203/data"
+const expressAPIUrl = "http://192.168.0.200:8000/fitbit";
 
-function sendMessageToServer(message) {
-  fetch(host , {
+function sendMessageToExpress(message) {
+  fetch(expressAPIUrl , {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -52,12 +52,12 @@ calendars.searchEvents(eventsQuery).then(todayEvents => {
   console.log("CALENDAR EVENTS: ");
   todayEvents.forEach(event => {
     console.log("EVENT : " + event.title)
-    sendMessageToServer(event);
+    sendMessageToExpress(event);
   })
 });
 
 
 peerSocket.addEventListener("message", (evt) => {
   console.log("MESSAGE FROM THE APP: " + evt.data);
-  sendMessageToServer(evt.data);
+  sendMessageToExpress(evt.data);
 });
