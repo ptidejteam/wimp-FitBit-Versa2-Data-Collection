@@ -18,7 +18,7 @@ console.log("Companion Running ");
 
 // const host = "https://webhook.site/afbb96d5-cfba-41ed-a4c9-0d0325e278c3"; // Webhook URL fort tests
 
-const expressAPIUrl = "http://192.168.0.200:8000/fitbit";
+const expressAPIUrl = "http://192.168.0.200/node/fitbit";
 
 function sendMessageToExpress(message) {
   fetch(expressAPIUrl , {
